@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+  number: Number,
+  username: String,
+  userID: Number,
+  repos: String
+
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -14,3 +18,6 @@ let save = (/* TODO */) => {
 }
 
 module.exports.save = save;
+
+
+// do i need to use var db = mongoose.connection?? (https://mongoosejs.com/docs/index.html)

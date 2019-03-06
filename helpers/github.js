@@ -30,4 +30,4 @@ let getReposByUsername = (/* TODO */ username, cb) => {
   // return repoData
 }
 
-module.exports.getReposByUsername = getReposByUsername;
+module.exports = getReposByUsername;

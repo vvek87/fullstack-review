@@ -1,14 +1,27 @@
 const express = require('express');
 let app = express();
 
-var getRepos = require('../helpers/github.js');
-var getReposByUsername = getRepos.getReposByUsername;
+var getReposByUsername = require('../helpers/github.js');
+
 
 var getSave = require('../database/index.js');
 var save = getSave.save;
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.urlencoded({extended: true}));
+
+app.get('/', (err) => {
+  if (err) {
+    console.log('ERROR: ', err);
+    res.status(404);
+    res.end();
+  } else {
+    console.log('Connection Established');
+    res.status(200);
+    res.end();
+  }
+
+})
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!

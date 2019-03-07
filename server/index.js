@@ -28,14 +28,12 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  var repoList;
   var searchTerm = Object.keys(req.body)[0];   // why is the term a key in req.body?
     getReposByUsername(searchTerm, (err, res, body) => {
-      repoList = JSON.parse(body);
-      // console.log('TEST-----------', repoList);
-      // console.log(repoList)
-      // return JSON.parse(body);
-      save(repoList)
+      if (err) {
+        console.log('ERROR: ', err);
+      }
+      save(JSON.parse(body));
     });
 });
 

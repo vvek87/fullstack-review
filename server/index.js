@@ -39,12 +39,15 @@ app.post('/repos', (req, res) => {
 });
 
 app.get('/repos', (req, res) => {
-
+// not executing without page refresh???
   sortedRepos((err, data) => {
     if (err) {
       console.log('Error: ', err)
     }
     var top25 = (repos) => {
+      repos.sort((a, b) => {
+        return b.stargazers - a.stargazers;
+      });
       var results = [];
       if (repos.length >= 25) {
         for (var i = 0; i < 25; i++) {
@@ -55,8 +58,7 @@ app.get('/repos', (req, res) => {
           results.push(repos[j])
         }
       }
-
-      return results;
+      return {"topRepos": results, "totalRepos": repos.length};
     }
     res.status(200);
     res.send(top25(data));

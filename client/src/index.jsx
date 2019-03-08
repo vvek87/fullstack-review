@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: 0,
+      topRepos: []
     }
 
   }
@@ -35,19 +36,20 @@ class App extends React.Component {
     $.ajax({
       url: "/repos",
       method: "GET",
-      error: (err) => {
-        if (err) {console.log('ERROR: ', err)}},
-      success: (data) => {this.setState({repos: data})}
+      error: (err) => {console.log('ERROR: ', err)},
+      success: (data) => {
+        this.setState({
+          repos: data.totalRepos,
+          topRepos: data.topRepos
+        })}
     })
   }
-
-
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <Search onSearch={this.search.bind(this)}/>
-      <RepoList repos={this.state.repos}/>
+      <RepoList repos={this.state.repos} topRepos={this.state.topRepos}/>
     </div>)
   }
 }

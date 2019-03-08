@@ -42,7 +42,7 @@ let save = (repos) => {
 }
 
 
-let sort = (cb) => {
+let sort = (cb) => { // this may have been causing repeated repos in my top 25 list, why??
   mongoose.model('Repo').find({}).sort('-stargazers').exec((err, repos) => {
     if (err) {
       console.log('ERROR: ', err);

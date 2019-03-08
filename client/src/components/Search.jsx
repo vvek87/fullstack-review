@@ -28,7 +28,3 @@ class Search extends React.Component {
 }
 
 export default Search;
-
-// line 24 in render, the input tag with this.state.terms, isnt it this.state.term??
-
-// maybe determine top 25 repos by their "stargazers" count in the repo data?

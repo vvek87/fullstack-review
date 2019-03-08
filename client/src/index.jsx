@@ -13,22 +13,41 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.get();
+  }
+
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
     $.ajax({
       url: "/repos",
       method: "POST",
       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-      data: term
+      data: term,
+      error: (err) => {console.log('ERROR: ', err)},
+      success: () => {
+        this.get()
+      }
     })
   }
+
+  get () {
+    $.ajax({
+      url: "/repos",
+      method: "GET",
+      error: (err) => {
+        if (err) {console.log('ERROR: ', err)}},
+      success: (data) => {this.setState({repos: data})}
+    })
+  }
+
+
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

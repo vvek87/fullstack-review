@@ -18,15 +18,6 @@ let getReposByUsername = (username, cb) => {
     }
   };
 
-  // var callback = (err, res, body) => {
-  //   if (err) {
-  //     console.log('ERROR: ', err)
-  //   }
-  //   var data = JSON.parse(body)
-  //   return data;
-  //   // console.log('PARSED BODY IN getReposByUsername', data)
-  // }
-  return request(options, cb);
-  // return repoData
+  request(options, cb);
 }
 module.exports = getReposByUsername;

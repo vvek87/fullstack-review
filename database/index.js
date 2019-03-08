@@ -32,7 +32,7 @@ let save = (repos) => {
       repoName: repos[i].name,
       repoURL: repos[i].html_url,
       stargazers: repos[i].stargazers_count
-    }).save((err) => {
+    }).save((err, data) => {
       if (err) {
         console.log('ERROR: ', err.message)
       }
@@ -41,12 +41,27 @@ let save = (repos) => {
 
 }
 
+
+let sort = (cb) => {
+  mongoose.model('Repo').find({}).sort('-stargazers').exec((err, repos) => {
+    if (err) {
+      console.log('ERROR: ', err);
+      cb(err, null)
+    } else {
+      cb(null, repos);
+    }
+  })
+}
+
+
+
 module.exports.save = save;
 module.exports.repo = Repo;
+module.exports.sort = sort;
 
 
 // do i need to use var db = mongoose.connection?? (https://mongoosejs.com/docs/index.html)
 
- // mongoose.model('Repo').find((err, repos) => {
-  //     console.log('TEST REPOIDS------', repos);
-  // })
+//  mongoose.model('Repo').find((err, repos) => {
+//       console.log('TEST REPOIDS------', repos);
+//   })

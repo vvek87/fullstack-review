@@ -1,5 +1,6 @@
 const express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 
 var getReposByUsername = require('../helpers/github.js');
 
@@ -24,30 +25,32 @@ app.get('/', (err) => {
 
 })
 
-app.post('/repos', (req, res) => {
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-  var searchTerm = Object.keys(req.body)[0];   // why is the term a key in req.body?
+app.post('/repos', urlencodedParser, (req, res) => {
+  var endResponse = () => {
+    res.end()
+  };
+
+  var searchTerm = req.body.username;
 
   getReposByUsername(searchTerm, (err, response, body) => {
     if (err) {
       console.log('ERROR: ', err);
     }
-    save(JSON.parse(body))
+    save(JSON.parse(body), endResponse)
   });
-  res.end(JSON.stringify('test'));
+
 
 });
 
 app.get('/repos', (req, res) => {
-// not executing without page refresh???
   sortedRepos((err, data) => {
     if (err) {
       console.log('Error: ', err)
     }
     var top25 = (repos) => {
-      repos.sort((a, b) => {
-        return b.stargazers - a.stargazers;
-      });
+
       var results = [];
       if (repos.length >= 25) {
         for (var i = 0; i < 25; i++) {
@@ -58,10 +61,13 @@ app.get('/repos', (req, res) => {
           results.push(repos[j])
         }
       }
+      // console.log('RESULTS IN GET SERVER', results)
       return {"topRepos": results, "totalRepos": repos.length};
     }
+    // console.log(data)
     res.status(200);
     res.send(top25(data));
+
   });
 
 });

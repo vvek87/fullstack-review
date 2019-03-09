@@ -11,7 +11,7 @@ class App extends React.Component {
       repos: 0,
       topRepos: []
     }
-
+    this.get = this.get.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +23,9 @@ class App extends React.Component {
     $.ajax({
       url: "/repos",
       method: "POST",
-      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-      data: term,
+      data: {"username": term},
       error: (err) => {console.log('ERROR: ', err)},
-      success: () => {
+      success: (data) => {
         this.get()
       }
     })

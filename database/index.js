@@ -17,41 +17,49 @@ let repoSchema = mongoose.Schema({      // in use
 });
 let Repo = mongoose.model('Repo', repoSchema);
 
-// top 25 stargazers data to display for each repo:
-// username,
-// repo name,
-// repo url,
-// stargazer count
 
-let save = (repos) => {
 
-  for (var i = 0; i < repos.length; i++) {
-    new Repo({
-      repoId: repos[i].id,
-      username: repos[i].owner.login,
-      repoName: repos[i].name,
-      repoURL: repos[i].html_url,
-      stargazers: repos[i].stargazers_count
-    }).save((err, data) => {
-      if (err) {
-        console.log('ERROR: ', err.message)
-      }
-    })
-  }
+let save = (repos, endResponse) => {
 
+    for (var i = 0; i < repos.length; i++) {
+      new Repo({
+        repoId: repos[i].id,
+        username: repos[i].owner.login,
+        repoName: repos[i].name,
+        repoURL: repos[i].html_url,
+        stargazers: repos[i].stargazers_count
+      }).save((err) => {
+        if (err) {
+          console.log('ERROR: ', err.message)
+        }
+      })
+    }
+  endResponse();
 }
 
 
-let sort = (cb) => { // this may have been causing repeated repos in my top 25 list, why??
+let sort = (cb) => {
   mongoose.model('Repo').find({}).sort('-stargazers').exec((err, repos) => {
     if (err) {
       console.log('ERROR: ', err);
       cb(err, null)
     } else {
+      // console.log('SORTED REPOS?', repos)
       cb(null, repos);
     }
   })
 }
+
+// let sort = (cb) => {
+//   mongoose.model('Repo').find({}).exec((err, repos) => {
+//     if (err) {
+//       console.log('ERROR: ', err)
+//       cb(err, null)
+//     }
+//     // console.log('REPOS NO SORT', repos)
+//     cb(null, repos)
+//   })
+// }
 
 
 

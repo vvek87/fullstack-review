@@ -10,7 +10,7 @@ let getReposByUsername = (username, cb) => {
     url: repoUrl,
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}`
+      'Authorization': `token ${config.TOKEN}` // const userToken = process.env.TOKEN
     }
   };
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcher'); // const DBConnection = process.env.DB_CONNECTION
 
 
 // var db = mongoose.connection;
@@ -8,13 +8,14 @@ mongoose.connect('mongodb://localhost/fetcher');
 //   console.log('Connected to database')
 // });
 
-let repoSchema = mongoose.Schema({      // in use
+let repoSchema = mongoose.Schema({
   repoId: {type: Number, unique: true},
   username: String,
   repoURL: String,
   repoName: String,
   stargazers: Number
 });
+
 let Repo = mongoose.model('Repo', repoSchema);
 
 
@@ -49,18 +50,6 @@ let sort = (cb) => {
     }
   })
 }
-
-// let sort = (cb) => {
-//   mongoose.model('Repo').find({}).exec((err, repos) => {
-//     if (err) {
-//       console.log('ERROR: ', err)
-//       cb(err, null)
-//     }
-//     // console.log('REPOS NO SORT', repos)
-//     cb(null, repos)
-//   })
-// }
-
 
 
 module.exports.save = save;

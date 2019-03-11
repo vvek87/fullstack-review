@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher'); // const DBConnection = process.env.DB_CONNECTION
+const DBConnection = process.env.DB_CONNECTION;
+
+mongoose.connect(DBConnection); // const DBConnection = process.env.DB_CONNECTION
 
 
 // var db = mongoose.connection;

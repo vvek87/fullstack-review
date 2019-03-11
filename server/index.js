@@ -1,6 +1,7 @@
 const express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
+const port = process.env.PORT || 1128;
 
 var getReposByUsername = require('../helpers/github.js');
 
@@ -72,7 +73,6 @@ app.get('/repos', (req, res) => {
 
 });
 
-let port = 1128; // const port = process.env.PORT
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

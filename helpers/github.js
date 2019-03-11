@@ -1,5 +1,6 @@
 const request = require('request');
-const config = require('../config.js');
+// const config = require('../config.js');
+const userToken = process.env.TOKEN
 
 let getReposByUsername = (username, cb) => {
 
@@ -10,7 +11,7 @@ let getReposByUsername = (username, cb) => {
     url: repoUrl,
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}` // const userToken = process.env.TOKEN
+      'Authorization': `token ${userToken}` // const userToken = process.env.TOKEN
     }
   };
 

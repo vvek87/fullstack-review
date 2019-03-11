@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const DBConnection = process.env.DB_CONNECTION;
+const DBConnection = process.env.DB_CONNECTION_ATLAS;
 
 mongoose.connect(DBConnection); // const DBConnection = process.env.DB_CONNECTION
 

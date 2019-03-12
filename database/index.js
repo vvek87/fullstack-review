@@ -55,14 +55,6 @@ let sort = (cb) => {
   })
 }
 
-
 module.exports.save = save;
 module.exports.repo = Repo;
 module.exports.sort = sort;
-
-
-// do i need to use var db = mongoose.connection?? (https://mongoosejs.com/docs/index.html)
-
-//  mongoose.model('Repo').find((err, repos) => {
-//       console.log('TEST REPOIDS------', repos);
-//   })

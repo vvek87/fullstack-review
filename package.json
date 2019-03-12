@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "postinstall": "npm run build",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
+  },
+  "engines": {
+    "node": "10.4.1"
   },
   "author": "Beth Johnson",
   "license": "ISC",

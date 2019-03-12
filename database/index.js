@@ -3,7 +3,6 @@ const DBConnection = process.env.DB_CONNECTION_ATLAS;
 
 mongoose.connect(DBConnection, {useNewUrlParser: true});
 
-
 var db = mongoose.connection;
 db.on('error', () => {
   console.log('connection error');
@@ -39,7 +38,6 @@ let save = (repos, endResponse) => {
     }
   endResponse();
 }
-
 
 let sort = (cb) => {
   mongoose.model('Repo').find({}).sort('-stargazers').exec((err, repos) => {

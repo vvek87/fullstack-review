@@ -42,18 +42,16 @@ app.post('/repos', urlencodedParser, (req, res) => {
     save(JSON.parse(body), endResponse)
   });
 
-
 });
 
 app.get('/repos', (req, res) => {
+
   sortedRepos((err, data) => {
     if (err) {
       console.log('Error: ', err)
     }
     var top25 = (repos) => {
-
       var results = [];
-
       if (repos.length >= 25) {
         results = repos.slice(0, 25)
       } else {
@@ -61,9 +59,9 @@ app.get('/repos', (req, res) => {
       }
       return {"topRepos": results, "totalRepos": repos.length};
     }
+
     res.status(200);
     res.send(top25(data));
-
   });
 
 });

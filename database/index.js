@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 const DBConnection = process.env.DB_CONNECTION_ATLAS;
 
-mongoose.connect(DBConnection); // const DBConnection = process.env.DB_CONNECTION
+mongoose.connect(DBConnection, {useNewUrlParser: true});
 
 
-// var db = mongoose.connection;
-// db.on('error', console.log('connection error'));
-// db.once('open', () => {
-//   console.log('Connected to database')
-// });
+var db = mongoose.connection;
+db.on('error', () => {
+  console.log('connection error');
+})
+db.once('open', () => {
+  console.log('Connected to database')
+});
 
 let repoSchema = mongoose.Schema({
   repoId: {type: Number, unique: true},

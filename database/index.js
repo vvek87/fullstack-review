@@ -23,9 +23,7 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 
-
 let save = (repos, endResponse) => {
-
     for (var i = 0; i < repos.length; i++) {
       new Repo({
         repoId: repos[i].id,
@@ -49,7 +47,6 @@ let sort = (cb) => {
       console.log('ERROR: ', err);
       cb(err, null)
     } else {
-      // console.log('SORTED REPOS?', repos)
       cb(null, repos);
     }
   })

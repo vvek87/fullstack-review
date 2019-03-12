@@ -6,7 +6,6 @@ const port = process.env.PORT || 5000;
 
 var getReposByUsername = require('../helpers/github.js');
 
-
 var getRepos = require('../database/index.js');
 var save = getRepos.save;
 var sortedRepos = getRepos.sort;
@@ -54,26 +53,20 @@ app.get('/repos', (req, res) => {
     var top25 = (repos) => {
 
       var results = [];
+
       if (repos.length >= 25) {
-        for (var i = 0; i < 25; i++) {
-          results.push(repos[i])
-        }
+        results = repos.slice(0, 25)
       } else {
-        for (var j = 0; j < repos.length; j++) {
-          results.push(repos[j])
-        }
+        results = repos.slice(0)
       }
-      // console.log('RESULTS IN GET SERVER', results)
       return {"topRepos": results, "totalRepos": repos.length};
     }
-    // console.log(data)
     res.status(200);
     res.send(top25(data));
 
   });
 
 });
-
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

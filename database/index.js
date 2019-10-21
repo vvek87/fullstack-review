@@ -3,9 +3,10 @@ const DBConnection = process.env.DB_CONNECTION_ATLAS;
 
 mongoose.connect(DBConnection, {useNewUrlParser: true});
 
-var db = mongoose.connection;
+let db = mongoose.connection;
+
 db.on('error', () => {
-  console.log('connection error');
+  console.log('Error connecting to database');
 })
 db.once('open', () => {
   console.log('Connected to database')
@@ -21,9 +22,8 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-
 let save = (repos, endResponse) => {
-    for (var i = 0; i < repos.length; i++) {
+    for (let i = 0; i < repos.length; i++) {
       new Repo({
         repoId: repos[i].id,
         username: repos[i].owner.login,

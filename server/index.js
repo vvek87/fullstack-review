@@ -1,14 +1,14 @@
-require('dotenv').config()
+require('dotenv').config();
+
 const express = require('express');
-let app = express();
-let bodyParser = require('body-parser');
+const app = express();
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 
-var getReposByUsername = require('../helpers/github.js');
-
-var getRepos = require('../database/index.js');
-var save = getRepos.save;
-var sortedRepos = getRepos.sort;
+const getReposByUsername = require('../helpers/github.js');
+const getRepos = require('../database/index.js');
+const save = getRepos.save;
+const sortedRepos = getRepos.sort;
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.urlencoded({extended: true}));
@@ -29,11 +29,11 @@ app.get('/', (err) => {
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.post('/repos', urlencodedParser, (req, res) => {
-  var endResponse = () => {
+  let endResponse = () => {
     res.end()
   };
 
-  var searchTerm = req.body.username;
+  let searchTerm = req.body.username;
 
   getReposByUsername(searchTerm, (err, response, body) => {
     if (err) {
@@ -50,14 +50,14 @@ app.get('/repos', (req, res) => {
     if (err) {
       console.log('Error: ', err)
     }
-    var top25 = (repos) => {
-      var results = [];
+    let top25 = (repos) => {
+      let results = [];
       if (repos.length >= 25) {
         results = repos.slice(0, 25)
       } else {
         results = repos.slice(0)
       }
-      return {"topRepos": results, "totalRepos": repos.length};
+      return {'topRepos': results, 'totalRepos': repos.length};
     }
 
     res.status(200);

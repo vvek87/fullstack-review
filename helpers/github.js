@@ -1,10 +1,9 @@
 const request = require('request');
-// const config = require('../config.js');
-const userToken = process.env.TOKEN
+const userToken = process.env.TOKEN;
 
 let getReposByUsername = (username, cb) => {
 
-  var repoUrl = "https://api.github.com/users/"+username+"/repos";
+  let repoUrl = "https://api.github.com/users/"+username+"/repos";
 
   let options = {
     method: "GET",
